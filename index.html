@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fun Game</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(to right, #ff9a9e, #fad0c4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .wrapper {
+        width: 400px;
+        height: 300px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        position: relative;
+        padding: 20px;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        overflow: hidden;
+      }
+
+      .question {
+        font-size: 28px;
+        font-weight: bold;
+        color: #ff66b2; /* Pink */
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      button {
+        padding: 12px 30px;
+        font-size: 18px;
+        cursor: pointer;
+        border: none;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+        outline: none;
+      }
+
+      .yes-btn {
+        background: linear-gradient(145deg, #43e97b, #38f9d7);
+        color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .yes-btn:hover {
+        background: linear-gradient(145deg, #38f9d7, #43e97b);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .no-btn {
+        background: linear-gradient(145deg, #ff4e50, #f9d423);
+        color: white;
+        position: absolute;
+        left: 150px;
+        top: 150px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .no-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .message {
+        display: none;
+        font-size: 24px;
+        color: #ff9900; /* Orange */
+        font-weight: bold;
+        margin-top: 20px;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Confetti styling */
+      .confetti {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .confetti div {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: #ff66b2;
+        opacity: 0.8;
+        animation: fall 4s infinite;
+        border-radius: 50%;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-100px);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(500px);
+          opacity: 0;
+        }
+      }
+
+      /* Responsive design tweaks */
+      @media (max-width: 768px) {
+        .wrapper {
+          width: 300px;
+          height: 250px;
+        }
+        .question {
+          font-size: 22px;
+        }
+        button {
+          padding: 10px 20px;
+          font-size: 16px;
+        }
+        .no-btn {
+          left: 100px;
+          top: 100px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .wrapper {
+          width: 250px;
+          height: 200px;
+        }
+        .question {
+          font-size: 18px;
+        }
+        button {
+          padding: 8px 15px;
+          font-size: 14px;
+        }
+        .no-btn {
+          left: 50px;
+          top: 50px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="question">Do YOU FW ME ?</div>
+      <button class="yes-btn">Yes</button>
+      <button class="no-btn">No</button>
+      <div class="message">&#128147  &#128571  &#128149 </div>
+      <div class="confetti"></div>
+    </div>
+
+    <script>
+      const wrapper = document.querySelector(".wrapper");
+      const question = document.querySelector(".question");
+      const yesBtn = document.querySelector(".yes-btn");
+      const noBtn = document.querySelector(".no-btn");
+      const message = document.querySelector(".message");
+      const confetti = document.querySelector(".confetti");
+
+      const wrapperRect = wrapper.getBoundingClientRect();
+      const noBtnRect = noBtn.getBoundingClientRect();
+
+      yesBtn.addEventListener("click", () => {
+        question.innerHTML = "I FW U TOO &#128159;" ;
+        message.style.display = "block";
+        createConfetti();
+      });
+
+      noBtn.addEventListener("mouseover", () => {
+        const i =
+          Math.floor(Math.random() * (wrapperRect.width - noBtnRect.width)) + 1;
+        const j =
+          Math.floor(Math.random() * (wrapperRect.height - noBtnRect.height)) +
+          1;
+
+        noBtn.style.left = i + "px";
+        noBtn.style.top = j + "px";
+      });
+
+      function createConfetti() {
+        for (let i = 0; i < 100; i++) {
+          const confettiPiece = document.createElement("div");
+          confettiPiece.style.left = Math.random() * 100 + "%";
+          confettiPiece.style.animationDelay = Math.random() * 5 + "s";
+          confettiPiece.style.backgroundColor = getRandomColor();
+          confetti.appendChild(confettiPiece);
+        }
+      }
+
+      function getRandomColor() {
+        const colors = [
+          "#ff66b2",
+          "#f9d423",
+          "#43e97b",
+          "#38f9d7",
+          "#ff4e50",
+          "#f9d423",
+        ];
+        return colors[Math.floor(Math.random() * colors.length)];
+      }
+    </script>
+  </body>
+</html>
