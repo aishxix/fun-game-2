@@ -53,14 +53,17 @@
       }
 
       .yes-btn {
-        background: linear-gradient(145deg, #43e97b, #38f9d7);
+        background: linear-gradient(145deg, #ac43e9, #38f9d7);
         color: white;
+        position: absolute;
+        left: 150px;
+        top: 200px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
       }
 
       .yes-btn:hover {
-        background: linear-gradient(145deg, #38f9d7, #43e97b);
-        transform: translateY(-5px);
+        transform: scale(1.1);
         box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
       }
 
@@ -68,14 +71,31 @@
         background: linear-gradient(145deg, #ff4e50, #f9d423);
         color: white;
         position: absolute;
-        left: 150px;
-        top: 150px;
+        left: 10px;
+        top: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         transition: all 0.3s ease;
       }
 
       .no-btn:hover {
         transform: scale(1.1);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .other-btn {
+        font-size: 17px;
+        background: linear-gradient(145deg, #38f9d7, #43e97b);
+        color: white;
+        position: absolute;
+        left: 115px;
+        top: 150px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .other-btn:hover {
+        background: linear-gradient(145deg, #38f9d7, #43e97b);
+        transform: translateY(-5px);
         box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
       }
 
@@ -158,10 +178,11 @@
   </head>
   <body>
     <div class="wrapper">
-      <div class="question">Do YOU FW ME ?</div>
-      <button class="yes-btn">Yes</button>
-      <button class="no-btn">No</button>
-      <div class="message">&#128147  &#128571  &#128149 </div>
+      <div class="question">Which Team?</div>
+      <button class="yes-btn">Conrad</button>
+      <button class="no-btn">Jeremiah</button>
+      <button class="other-btn">Assassinate Belly</button>
+      <div class="message">&#x1F608 &#x1FA78 &#x1F621  </div>
       <div class="confetti"></div>
     </div>
 
@@ -170,15 +191,20 @@
       const question = document.querySelector(".question");
       const yesBtn = document.querySelector(".yes-btn");
       const noBtn = document.querySelector(".no-btn");
+      const otherBtn = document.querySelector(".other-btn");
       const message = document.querySelector(".message");
       const confetti = document.querySelector(".confetti");
 
       const wrapperRect = wrapper.getBoundingClientRect();
       const noBtnRect = noBtn.getBoundingClientRect();
+      const yesBtnRect = yesBtn.getBoundingClientRect();
 
-      yesBtn.addEventListener("click", () => {
-        question.innerHTML = "I FW U TOO &#128159;" ;
+      otherBtn.addEventListener("click", () => {
+        question.innerHTML = "YES YUTE HER TO THE FUCKING MOON <br>&#x1F608  &#x1F9B5;" ;
         message.style.display = "block";
+          yesBtn.style.display = "none";  
+          noBtn.style.display = "none"; 
+          otherBtn.style.display = "none";
         createConfetti();
       });
 
@@ -191,6 +217,17 @@
 
         noBtn.style.left = i + "px";
         noBtn.style.top = j + "px";
+      });
+
+      yesBtn.addEventListener("mouseover", () => {
+        const k =
+          Math.floor(Math.random() * (wrapperRect.width - yesBtnRect.width)) + 1;
+        const l =
+          Math.floor(Math.random() * (wrapperRect.height - yesBtnRect.height)) +
+          1;
+
+        yesBtn.style.left = k + "px";
+        yesBtn.style.top = l + "px";
       });
 
       function createConfetti() {
